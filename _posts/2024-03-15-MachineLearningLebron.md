@@ -12,10 +12,21 @@ permalink: /LEBRON
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeBron MATCHUP Stat Predicter</title>
+    <title>LeBron Career Stats</title>
     <style>
+        body {
+            background-image: url('images/lebronpic.jpg');
+            background-size: 100%; /* Adjust the percentage as needed */
+            background-position: center center;
+            background-attachment: fixed;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #ffffff; /* Text color */
+            text-align: center;
+            padding: 50px; /* Add padding to the content */
+        }
         .container {
-            max-width: 400px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #ccc;
@@ -71,139 +82,111 @@ permalink: /LEBRON
 </head>
 <body>
     <div class="container">
-        <h2>LeBron MATCHUP Stat Predicter</h2>
-        <form action="process_form.py" method="post">
-            <label for="opponent">WHO DARES STAND AGAINST OUR GLORIOUS KING!?</label>
+        <h2>LeBron Career Stats</h2>
+        <form id="statsForm">
+            <label for="opponent">WHO DARES STAND AGAINST OUR GLORIOUS KING TONIGHT?:</label>
             <input type="text" id="opponent" name="opponent" required>
             <button type="submit">Get Stats</button>
         </form>
+        <br>   
         <h3>NBA Team Abbreviations</h3>
         <table>
             <tr>
+                <th>Team</th>
+                <th>Abbreviation</th>
                 <th>Team</th>
                 <th>Abbreviation</th>
             </tr>
             <tr>
                 <td>Atlanta Hawks</td>
                 <td>ATL</td>
-            </tr>
-            <tr>
-                <td>Boston Celtics</td>
-                <td>BOS</td>
-            </tr>
-            <tr>
-                <td>Brooklyn Nets</td>
-                <td>BKN</td>
-            </tr>
-            <tr>
-                <td>Charlotte Hornets</td>
-                <td>CHA</td>
-            </tr>
-            <tr>
-                <td>Chicago Bulls</td>
-                <td>CHI</td>
-            </tr>
-            <tr>
-                <td>Cleveland Cavaliers</td>
-                <td>CLE</td>
-            </tr>
-            <tr>
-                <td>Dallas Mavericks</td>
-                <td>DAL</td>
-            </tr>
-            <tr>
-                <td>Denver Nuggets</td>
-                <td>DEN</td>
-            </tr>
-            <tr>
-                <td>Detroit Pistons</td>
-                <td>DET</td>
-            </tr>
-            <tr>
-                <td>Golden State Warriors</td>
-                <td>GSW</td>
-            </tr>
-            <tr>
-                <td>Houston Rockets</td>
-                <td>HOU</td>
-            </tr>
-            <tr>
-                <td>Indiana Pacers</td>
-                <td>IND</td>
-            </tr>
-            <tr>
-                <td>LA Clippers</td>
-                <td>LAC</td>
-            </tr>
-            <tr>
-                <td>Los Angeles Lakers</td>
-                <td>LAL</td>
-            </tr>
-            <tr>
-                <td>Memphis Grizzlies</td>
-                <td>MEM</td>
-            </tr>
-            <tr>
                 <td>Miami Heat</td>
                 <td>MIA</td>
             </tr>
             <tr>
+                <td>Boston Celtics</td>
+                <td>BOS</td>
                 <td>Milwaukee Bucks</td>
                 <td>MIL</td>
             </tr>
             <tr>
-                <td>Minnesota Timberwolves</td>
+                <td>Brooklyn Nets</td>
+                <td>BKN</td>
+                <td>Minnesota Timberwolves	</td>
                 <td>MIN</td>
             </tr>
             <tr>
+                <td>Charlotte Hornets</td>
+                <td>CHA</td>
                 <td>New Orleans Pelicans</td>
                 <td>NO</td>
             </tr>
             <tr>
+                <td>Chicago Bulls</td>
+                <td>CHI</td>
                 <td>New York Knicks</td>
                 <td>NYK</td>
             </tr>
             <tr>
+                <td>Cleveland Cavaliers</td>
+                <td>CLE</td>
                 <td>Oklahoma City Thunder</td>
                 <td>OKC</td>
             </tr>
             <tr>
+                <td>Dallas Mavericks</td>
+                <td>DAL</td>
                 <td>Orlando Magic</td>
                 <td>ORL</td>
             </tr>
             <tr>
+                <td>Denver Nuggets</td>
+                <td>DEN</td>
                 <td>Philadelphia 76ers</td>
                 <td>PHI</td>
             </tr>
             <tr>
+                <td>Detroit Pistons</td>
+                <td>DET</td>
                 <td>Phoenix Suns</td>
                 <td>PHX</td>
             </tr>
             <tr>
-                <td>Portland Trail Blazers</td>
+                <td>Golden State Warriors</td>
+                <td>GSW</td>
+                <td>Portland Trail Blazers	</td>
                 <td>POR</td>
             </tr>
             <tr>
+                <td>Houston Rockets</td>
+                <td>HOU</td>
                 <td>Sacramento Kings</td>
                 <td>SAC</td>
             </tr>
             <tr>
+                <td>Indiana Pacers</td>
+                <td>IND</td>
                 <td>San Antonio Spurs</td>
                 <td>SAS</td>
             </tr>
             <tr>
+                <td>LA Clippers</td>
+                <td>LAC</td>
                 <td>Toronto Raptors</td>
                 <td>TOR</td>
             </tr>
             <tr>
+                <td>Los Angeles Lakers</td>
+                <td>LAL</td>
                 <td>Utah Jazz</td>
                 <td>UTA</td>
             </tr>
             <tr>
+                <td>Memphis Grizzlies</td>
+                <td>MEM</td>
                 <td>Washington Wizards</td>
                 <td>WSH</td>
             </tr>
         </table>
+        <div id="statsResult"></div>
     </div>
-</body>
-</html>
