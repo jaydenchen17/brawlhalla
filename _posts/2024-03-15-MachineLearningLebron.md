@@ -83,10 +83,11 @@ permalink: /LEBRON
 <body>
     <div class="container">
         <h2>LeBron Career Stats</h2>
-        <form id="statsForm">
+    <form action="javascript:get_stats()">
             <label for="opponent">WHO DARES STAND AGAINST OUR GLORIOUS KING TONIGHT?:</label>
+                Abbreviation:
             <input type="text" id="opponent" name="opponent" required>
-            <button type="submit">Get Stats</button>
+            <button>Get Stats</button>
         </form>
         <br>   
         <h3>NBA Team Abbreviations</h3>
@@ -190,3 +191,31 @@ permalink: /LEBRON
         </table>
         <div id="statsResult"></div>
     </div>
+
+<script type="module">
+    // uri variable and options object are obtained from config.js
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+
+    function get_stats(){
+        // Fetch JWT
+        fetch(url, authOptions)
+        .then(response => {
+            // handle error response from Web API
+            if (!response.ok) {
+                const errorMsg = 'Login error: ' + response.status;
+                console.log(errorMsg);
+                return;
+            }
+            // Success!!!
+            // Redirect to the database page
+            window.location.href = "{{site.baseurl}}/data/database";
+        })
+        // catch fetch errors (ie ACCESS to server blocked)
+        .catch(err => {
+            console.error(err);
+        });
+    }
+
+    // Attach login_user to the window object, allowing access to form action
+    window.login_user = login_user;
+</script>
