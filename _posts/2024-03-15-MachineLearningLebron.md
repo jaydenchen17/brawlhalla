@@ -191,31 +191,50 @@ permalink: /LEBRON
         </table>
         <div id="statsResult"></div>
     </div>
-
 <script type="module">
-    // uri variable and options object are obtained from config.js
-    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-
-    function get_stats(){
-        // Fetch JWT
-        fetch(url, authOptions)
-        .then(response => {
-            // handle error response from Web API
-            if (!response.ok) {
-                const errorMsg = 'Login error: ' + response.status;
-                console.log(errorMsg);
-                return;
-            }
-            // Success!!!
-            // Redirect to the database page
-            window.location.href = "{{site.baseurl}}/data/database";
+    function get_stats() {
+        const opponent = document.getElementById('opponent').value;
+        // Create the request body
+        const requestBody = {
+            Abbreviation: opponent
+        };
+        // Make a POST request to the backend API
+        fetch('http://127.0.0.1:8086/api/lebrons/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
         })
-        // catch fetch errors (ie ACCESS to server blocked)
-        .catch(err => {
-            console.error(err);
+        .then(response => {
+            // Check if the response is successful
+            if (!response.ok) {
+                throw new Error('Error fetching data: ' + response.statusText);
+            }
+            // Parse the JSON response
+            return response.json();
+        })
+        .then(data => {
+            // Display the prediction results on the frontend
+            console.log(data); // Log the response for debugging
+            document.getElementById('statsResult').innerHTML = `
+                <h3>Based off our predictions and statistical analysis, our glorious pookie bear will perform with these numbers against ${data.opponent}</h3>
+                <p>Minutes played: ${data.average_minutes_played_hours}</p>
+                <p>Points: ${data.average_stats_rounded.pts}</p>
+                <p>Field Goal Percentage: ${data.average_stats_rounded.fg_percentage}</p>
+                <p>Assists: ${data.average_stats_rounded.ast}</p>
+                <p>Rebounds: ${data.average_stats_rounded.rebounds}</p>
+                <p>Steals: ${data.average_stats_rounded.stl}</p>
+                <p>Blocks: ${data.average_stats_rounded.blk}</p>
+                <p>Turnovers: ${data.average_stats_rounded.tov}</p>
+            `;
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('Error fetching data:', error);
+            document.getElementById('statsResult').innerHTML = '<p>Error fetching data. Please try again later.</p>';
         });
     }
-
-    // Attach login_user to the window object, allowing access to form action
-    window.login_user = login_user;
+    // Attach the get_stats function to the window object to make it accessible
+    window.get_stats = get_stats;
 </script>
