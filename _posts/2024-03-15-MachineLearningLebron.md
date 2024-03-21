@@ -10,6 +10,7 @@ permalink: /LEBRON
 
 <html lang="en">
 <head>
+<audio id="lebronAudio" src="audio/LeBron😆.mp3"></audio>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeBron Career Stats</title>
@@ -228,6 +229,7 @@ permalink: /LEBRON
                 <p>Blocks: ${data.average_stats_rounded.blk}</p>
                 <p>Turnovers: ${data.average_stats_rounded.tov}</p>
             `;
+            document.getElementById('lebronAudio').play();
         })
         .catch(error => {
             // Handle errors
