@@ -19,6 +19,9 @@ title: Student Blog
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-image: url('images/sunshine.png'); 
+            background-size: cover; 
+            background-position: center; 
         }
         .sigma-text {
             text-align: center;
