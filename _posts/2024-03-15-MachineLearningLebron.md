@@ -10,7 +10,7 @@ permalink: /LEBRON
 
 <html lang="en">
 <head>
-<audio id="lebronAudio" src="audio/LeBron😆.mp3"></audio>
+<audio id="lebronAudio" src="audio/allofthelights.mp3"></audio>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeBron Career Stats</title>
@@ -192,13 +192,16 @@ permalink: /LEBRON
         </table>
         <div id="statsResult"></div>
     </div>
+
 <script type="module">
     function get_stats() {
         const opponent = document.getElementById('opponent').value;
+        
         // Create the request body
         const requestBody = {
             Abbreviation: opponent
         };
+
         // Make a POST request to the backend API
         fetch('http://127.0.0.1:8086/api/lebrons/', {
             method: 'POST',
@@ -219,7 +222,7 @@ permalink: /LEBRON
             // Display the prediction results on the frontend
             console.log(data); // Log the response for debugging
             document.getElementById('statsResult').innerHTML = `
-                <h3>Based off our predictions and statistical analysis, our glorious pookie bear will perform with these numbers against ${data.opponent}</h3>
+                <h3>Average stats for the last 10 matchups against ${data.opponent}</h3>
                 <p>Minutes played: ${data.average_minutes_played_hours}</p>
                 <p>Points: ${data.average_stats_rounded.pts}</p>
                 <p>Field Goal Percentage: ${data.average_stats_rounded.fg_percentage}</p>
@@ -229,7 +232,16 @@ permalink: /LEBRON
                 <p>Blocks: ${data.average_stats_rounded.blk}</p>
                 <p>Turnovers: ${data.average_stats_rounded.tov}</p>
             `;
-            document.getElementById('lebronAudio').play();
+
+            // Play the audio
+            const audio = document.getElementById('lebronAudio');
+            audio.play();
+            
+            // Restart the audio playback when it ends
+            audio.addEventListener('ended', () => {
+                audio.currentTime = 0; // Reset the audio playback to the beginning
+                audio.play(); // Start playing the audio again
+            });
         })
         .catch(error => {
             // Handle errors
@@ -237,6 +249,7 @@ permalink: /LEBRON
             document.getElementById('statsResult').innerHTML = '<p>Error fetching data. Please try again later.</p>';
         });
     }
+
     // Attach the get_stats function to the window object to make it accessible
     window.get_stats = get_stats;
 </script>
