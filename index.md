@@ -29,7 +29,7 @@ title: Student Blog
             color: #333;
             text-transform: uppercase;
             letter-spacing: 4px;
-            background: linear-gradient(45deg, #ff9900, #ff5e62);
+            background: linear-gradient(45deg, #000000, #4300c9);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             padding: 20px;
