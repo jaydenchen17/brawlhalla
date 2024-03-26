@@ -36,13 +36,19 @@ title: Student Blog
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        /* Style for the image button */
+        .button {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="sigma-text">
         WE ARE THE SIGMAS
     </div>
+    <a href="YOUR_LINK_URL_HERE" class="button">
+        <img src="images/lebronandwade.webp" alt="LeBron and Wade">
+    </a>
 </body>
 </html>
 
-![Lebron and Wade](images/lebronandwade.webp)
