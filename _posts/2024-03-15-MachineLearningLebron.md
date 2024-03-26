@@ -2,10 +2,10 @@
 toc: false
 comments: true
 layout: post
-title: Machine Learning Project LEBRON JAMES
+title: Machine Learning- PROJECT LEBRON
 type: tangibles
-courses: { compsci: {week: 3} }
-permalink: /LEBRON
+courses: { compsci: {week: 1} }
+permalink: /LEBRONpredicter
 ---
 
 <html lang="en">
@@ -88,7 +88,8 @@ permalink: /LEBRON
             <label for="opponent">WHO DARES STAND AGAINST OUR GLORIOUS KING TONIGHT?:</label>
                 Abbreviation:
             <input type="text" id="opponent" name="opponent" required>
-            <button>Get Stats</button>
+            <button>Let us see how our pookie bear will cook these silly geese 😤💖👊🏀
+</button>
         </form>
         <br>   
         <h3>NBA Team Abbreviations</h3>
@@ -202,6 +203,9 @@ permalink: /LEBRON
             Abbreviation: opponent
         };
 
+        // Clear previous result
+        document.getElementById('statsResult').innerHTML = '';
+
         // Make a POST request to the backend API
         fetch('http://127.0.0.1:8086/api/lebrons/', {
             method: 'POST',
@@ -248,6 +252,8 @@ permalink: /LEBRON
             console.error('Error fetching data:', error);
             document.getElementById('statsResult').innerHTML = '<p>Error fetching data. Please try again later.</p>';
         });
+        const statsResult = document.getElementById('statsResult');
+        statsResult.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     // Attach the get_stats function to the window object to make it accessible
