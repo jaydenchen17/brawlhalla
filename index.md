@@ -46,7 +46,7 @@ title: Student Blog
     <div class="sigma-text">
         WE ARE THE SIGMAS
     </div>
-    <a href="YOUR_LINK_URL_HERE" class="button">
+    <a href="https://jaydenchen17.github.io/brawlhalla//LEBRON" class="button">
         <img src="images/lebronandwade.webp" alt="LeBron and Wade">
     </a>
 </body>
