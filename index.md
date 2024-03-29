@@ -55,8 +55,10 @@ title: Student Blog
         <a href="/brawlhalla/profile" class="profile-button">View your Profile</a>
     </div>
 </div>
+<a href="https://jaydenchen17.github.io/brawlhalla//LEBRONpredicter" class="button">
+        <img src="images/lebronandwade.webp" alt="LeBron and Wade">
+    </a>
 </body>
 
 </head>
 
-![Lebron and Wade](images/lebronandwade.webp)
