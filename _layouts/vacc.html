@@ -1,0 +1,149 @@
+---
+layout: base 
+---
+<script>
+    function isSignedIn()
+    {
+        let jwt = getCookie("jwt");
+        if(jwt)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    function parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    }
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+</script>
+<script type="module">
+
+  // uri variable and options object are obtained from config.js
+  import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+
+  function login_user(){
+      // Set Authenticate endpoint
+      const url = uri + '/api/users/authenticate';
+
+      // Set the body of the request to include login data from the DOM
+      const body = {
+          // name: document.getElementById("name").value,
+          uid: document.getElementById("uid").value,
+          password: document.getElementById("password").value,
+          // dob: document.getElementById("dob").value
+      };
+
+      // Change options according to Authentication requirements
+      const authOptions = {
+          ...options, // This will copy all properties from options
+          method: 'POST', // Override the method property
+          cache: 'no-cache', // Set the cache property
+          credentials: 'include',
+          body: JSON.stringify(body)
+      };
+
+      // Fetch JWT
+      fetch(url, authOptions)
+      .then(response => {
+          // handle error response from Web API
+          if (!response.ok) {
+            
+            response.json().then(data => {
+                document.getElementById("error").innerText = data.message;
+            });
+
+            // if (response.status === 401) {
+            //       // Unauthorized - Redirect to 401 error page
+            //       window.location.href = "{{site.baseurl}}/401.html";
+            //   } else if (response.status === 403) {
+            //       // Forbidden - Redirect to 403 error page
+            //       window.location.href = "{{site.baseurl}}/403.html";
+            //   } else if (response.status === 400) {
+            //       // Forbidden - Redirect to 400 error page
+            //       window.location.href = "{{site.baseurl}}/400.html";
+            //   } else if (response.status === 404) {
+            //       // Not Found - Redirect to 404 error page
+            //       window.location.href = "{{site.baseurl}}/404.html";
+            //   } else {
+            //       // Handle other error responses
+            //       const errorMsg = 'Login error: ' + response.status;
+            //       console.log(errorMsg);
+            //   }
+              return;
+          }
+          // Success!!!
+          // Redirect to the database page
+          window.location.href = "{{site.baseurl}}/AD_vmyevents.html";
+      })
+      // catch fetch errors (ie ACCESS to server blocked)
+      .catch(err => {
+          console.error(err);
+      });
+  }
+  // Attach login_user to the window object, allowing access to form action
+  window.login_user = login_user;
+</script>
+
+<body class="oppconn">
+    <h3 id="greet">My Account</h3>
+    <br /><br />
+    <div id="loggedin">
+        <button class="userInput" onclick="document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; window.location.href = '{{site.baseurl}}/AB_vacc.html';">Logout</button>
+    </div>
+    <div class="container" id="loggedout">
+        <form id="username" action="javascript:login_user()">
+            <p><label>
+                User ID:
+                <input class="userInput" type="text" name="uid" id="uid" required="" />
+            </label></p>
+            <p><label>
+                Password:
+                <input class="userInput" type="password" name="password" id="password" required="" />
+            </label></p>
+            <p>
+                <button class="userInput">Login</button>
+            </p>
+            <label id="error" style="color: red;"></label>
+            <a href="{{site.baseurl}}/createUser"><h4>New User Registration</h4></a>
+        </form>
+    </div>
+    <script>
+        if(isSignedIn())
+            {
+                let jwt = getCookie("jwt");
+                let data = parseJwt(jwt);
+                document.getElementById('greet').innerText = 'Hello, ' + data._uid;
+                document.getElementById('loggedin').style.visibility = 'visible';
+                document.getElementById('loggedout').style.visibility = 'hidden';
+            }
+            else
+            {
+                document.getElementById('loggedin').style.visibility = 'hidden';
+                document.getElementById('loggedout').style.visibility = 'visible';
+            }
+    </script>
+</body>
