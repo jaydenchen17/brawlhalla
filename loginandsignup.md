@@ -54,7 +54,7 @@ permalink: /login
             if (response.ok) {
                 console.log("User logged in successfully");
                 localStorage.setItem("userUid", uid);
-                window.location.href = "{{ site.baseurl }}/postlogin"
+                window.location.href = "{{ site.baseurl }}//LEBRONpredicter"
               } else {
                 console.error("User login failed");
                 // You can handle failed login attempts here
