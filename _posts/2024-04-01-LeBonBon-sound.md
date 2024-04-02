@@ -29,7 +29,7 @@ permalink: /LEBONBONsound
     }
     
     img {
-        width: 200px;  Adjust the width of the images */
+        width: 150px;  Adjust the width of the images */
         height: auto;
     }
 </style>
@@ -47,6 +47,30 @@ permalink: /LEBONBONsound
 
 <button onclick="playSound('audio/leshiesty.mp3')">
     <img src="images/leshiesty.png" alt="LeShiesty">
+</button>
+
+<button onclick="playSound('audio/LeBollywood.mp3')">
+    <img src="images/lebollywood.png" alt="LeIndian">
+</button>
+
+<button onclick="playSound('audio/LeEmo.mp3')">
+    <img src="images/LeEmo.png" alt="LeMetal">
+</button>
+
+<button onclick="playSound('audio/LeEgyptian.mp3')">
+    <img src="images/LeEgyptian.png" alt="LeEgyptian">
+</button>
+
+<button onclick="playSound('audio/lecowboy.mp3')">
+    <img src="images/LeCowboy.png" alt="LeCowboy">
+</button>
+
+<button onclick="playSound('audio/lechoir.mp3')">
+    <img src="images/lechoir.png" alt="LeChoir">
+</button>
+
+<button onclick="playSound('audio/LeBrazil.mp3')">
+    <img src="images/lebrazil.png" alt="LeBrazil">
 </button>
 
 <!-- JavaScript to play sound -->
