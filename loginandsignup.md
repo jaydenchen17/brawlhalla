@@ -54,7 +54,7 @@ permalink: /login
             if (response.ok) {
                 console.log("User logged in successfully");
                 localStorage.setItem("userUid", uid);
-                window.location.href = "{{ site.baseurl }}//LEBRONpredicter"
+                window.location.href = "{{ site.baseurl }}//LEBONBONsound"
               } else {
                 console.error("User login failed");
                 // You can handle failed login attempts here
