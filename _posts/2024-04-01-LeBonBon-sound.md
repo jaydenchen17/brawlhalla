@@ -32,6 +32,10 @@ permalink: /LEBONBONsound
         width: 150px;  Adjust the width of the images */
         height: auto;
     }
+
+    img:hover {
+        transform: scale(1.1); /* Increase size on hover */
+    }
 </style>
 </head>
 <body>
@@ -75,9 +79,15 @@ permalink: /LEBONBONsound
 
 <!-- JavaScript to play sound -->
 <script>
+var currentlyPlaying = null;
+
 function playSound(soundFile) {
+    if (currentlyPlaying) {
+        currentlyPlaying.pause();
+    }
     var audio = new Audio(soundFile);
     audio.play();
+    currentlyPlaying = audio;
 }
 </script>
 
