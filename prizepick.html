@@ -1,0 +1,77 @@
+---
+toc: false
+comments: true
+layout: post
+title: PROJECT LEBRON - Prizepicks Sim
+type: tangibles
+courses: { compsci: {week: 1} }
+permalink: /prizepick
+---
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeBron Betting Simulator</title>
+    <link rel="stylesheet" href="prizepick.css">
+</head>
+<body>
+    <h2 id="matchupNumber"></h2>
+    <div class="panel">
+        <div class="profile">
+            <img src="images/leaura.png" alt="LeBron James Photo">
+        </div>
+        <div class="categories">
+            <div class="category">
+                <h2 id="opponent"></h2>
+                <h2>vs</h2>
+            </div>
+            <div class="category">
+                <p id="predictedPoints">Points: N/A</p>
+                <div>
+                    <button id="pointsOverBtn" onclick="placeBet('points', 'over')">over</button>
+                    <button id="pointsUnderBtn" onclick="placeBet('points', 'under')">under</button>
+                </div>
+            </div>
+            <div class="category">
+                <p id="predictedRebounds">Rebounds: N/A</p>
+                <div>
+                    <button id="reboundsOverBtn" onclick="placeBet('rebounds', 'over')">over</button>
+                    <button id="reboundsUnderBtn" onclick="placeBet('rebounds', 'under')">under</button>
+                </div>
+            </div>
+            <div class="category">
+                <p id="predictedAssists">Assists: N/A</p>
+                <div>
+                    <button id="assistsOverBtn" onclick="placeBet('assists', 'over')">over</button>
+                    <button id="assistsUnderBtn" onclick="placeBet('assists', 'under')">under</button>
+                </div>
+            </div>
+            <div class="balance-container">
+                <span class="balance-label">Balance:</span>
+                <span id="balance" class="balance-value">$100</span>
+            </div>
+        </div>
+    </div>
+    <label for="betInput">Enter your wager amount:</label>
+    <input type="text" id="betInput" placeholder="Wager amount">
+    <button onclick="simulateGame()">Simulate Game</button>
+    <button onclick="nextMatchup()">Next Matchup</button>
+    <div class="actual-categories-popup hidden">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h3>Actual Categories</h3>
+            <div class="category">
+                <p id="actualPoints">Actual Points: N/A</p>
+            </div>
+            <div class="category">
+                <p id="actualRebounds">Actual Rebounds: N/A</p>
+            </div>
+            <div class="category">
+                <p id="actualAssists">Actual Assists: N/A</p>
+            </div>
+        </div>
+    </div>
+    <script src="prizepick.js"></script>
+</body>
+</html>

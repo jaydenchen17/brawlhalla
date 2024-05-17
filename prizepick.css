@@ -1,0 +1,115 @@
+/* Your CSS styles here */
+        .panel {
+            max-width: 800px;
+            margin: 10px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #301934;
+            color: #fff;
+            text-align: left;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+        }
+        .profile {
+            width: 250px;
+            padding: 5px;
+            text-align: left;
+        }
+        .profile img {
+            width: 250px;
+            border-radius: 15px;
+            margin-bottom: 5px;
+        }
+        .categories {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .category {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        .category h2 {
+            margin: 0;
+        }
+        .category p {
+            margin-left: 10px;
+            margin-right: 60px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #6b3e91;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+        .flash-red {
+            animation: flash-red 0.5s infinite alternate;
+        }
+        @keyframes flash-red {
+            from { background-color: red; }
+            to { background-color: #301934; }
+        }
+        .flash-green {
+            animation: flash-green 0.5s infinite alternate;
+        }
+        @keyframes flash-green {
+            from { background-color: green; }
+            to { background-color: #301934; }
+        }
+        .actual-categories-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #301934;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            transition: opacity 0.5s;
+        }
+        .popup-content {
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .close-btn:hover {
+            color: #ff0000;
+        }
+        .balance-container {
+            margin-top: 20px;
+        }
+        .balance-label {
+            color: #fff;
+            font-size: 16px;
+        }
+        .balance-value {
+            width: 100px;
+            height: 30px;
+            border: 1px solid #fff;
+            background-color: #6b3e91;
+            color: #fff;
+            font-size: 16px;
+            padding: 5px;
+            margin-top: 5px;
+        }
