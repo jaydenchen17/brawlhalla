@@ -125,18 +125,27 @@ function simulateGame() {
             compareStats(actualStats);
             showActualCategories();
             const betOutcomes = determineBetOutcomes(actualStats);
-            const totalWinnings = evaluateParlay(betOutcomes, wagerAmount);
-            rewardUser(totalWinnings); // Call the rewardUser function
+            const totalWinnings = evaluateParlay(betOutcomes, wagerAmount, actualStats); // Pass actualStats here
             if (totalWinnings > 0) {
-                alert(`Congratulations! You win $${totalWinnings}.`);
+                // User wins
+                rewardUser(totalWinnings);
             } else {
-                alert('Sorry, you did not win this time.');
+                // User loses
+                updateBalanceOnLoss(wagerAmount);
             }
         })
         .catch(error => {
             console.error('Error simulating game:', error);
         });
 }
+
+function updateBalanceOnLoss(wagerAmount) {
+    const balanceElement = document.getElementById('balance');
+    const currentBalance = parseFloat(balanceElement.textContent.slice(1)); // Remove '$' sign
+    const newBalance = currentBalance - wagerAmount; // Deduct the wager amount from the current balance
+    balanceElement.textContent = `$${newBalance}`; // Update the balance text
+}
+
 
 function determineBetOutcomes(actualStats) {
     const betOutcomes = {};
@@ -153,17 +162,16 @@ function determineBetOutcomes(actualStats) {
 
 function evaluateParlay(betOutcomes, wagerAmount) {
     let totalWinnings = 0;
-    let allBetsWon = true;
-    for (const category in betOutcomes) {
-        if (betOutcomes[category]) {
-            totalWinnings += parseFloat(wagerAmount);
-        } else {
-            allBetsWon = false;
-        }
-    }
+
+    // Check if all three buttons are flashing green
+    const allBetsWon = Object.values(betOutcomes).every(outcome => outcome);
+
     if (allBetsWon) {
-        totalWinnings *= 3;
+        totalWinnings = wagerAmount * 3; // Triple the wager amount if all bets are won
+    } else {
+        totalWinnings = -wagerAmount; // User loses the entire wager if any bet is lost
     }
+
     return totalWinnings;
 }
 
@@ -239,15 +247,16 @@ function resetActualStats() {
     document.getElementById('actualAssists').textContent = '';
 }
 
-// Add the rewardUser function definition here
 function rewardUser(totalWinnings) {
-    // Assuming you want to log the winnings to the console
-    console.log(`User has been rewarded with $${totalWinnings}`);
-    
-    // You can add additional logic here, such as updating the user's balance or showing a message
-    // For example, if you have a user object and a balance property:
-    // user.balance += totalWinnings;
-    
-    // Or you can display a message to the user
-    // alert(`You have been rewarded with $${totalWinnings}`);
+    const wagerAmountInput = document.getElementById('betInput').value;
+    const wagerAmount = parseFloat(wagerAmountInput);
+    const balanceElement = document.getElementById('balance');
+    const currentBalance = parseFloat(balanceElement.textContent.slice(1)); // Remove '$' sign
+    let newBalance = currentBalance; // Initialize new balance
+    if (totalWinnings > 0) {
+        const winnings = totalWinnings - wagerAmount; // Deduct the original wager
+        const reward = winnings + (wagerAmount * 5); // Add 5 times the original wager
+        newBalance += reward; // Update the balance with the reward
+    }
+    balanceElement.textContent = `$${newBalance}`; // Update the balance text
 }
