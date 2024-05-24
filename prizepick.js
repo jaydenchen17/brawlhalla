@@ -122,13 +122,13 @@ function simulateGame() {
     getActualStatsForMatchup(currentMatchup)
         .then(actualStats => {
             displayActualStats(actualStats);
-            compareStats(actualStats);
+            const allBetsCorrect = compareStats(actualStats); // Now returns true if all bets are correct
             showActualCategories();
-            const betOutcomes = determineBetOutcomes(actualStats);
-            const totalWinnings = evaluateParlay(betOutcomes, wagerAmount, actualStats); // Pass actualStats here
-            if (totalWinnings > 0) {
+
+            console.log(`All bets correct: ${allBetsCorrect}`); // Log the final result
+            if (allBetsCorrect) {
                 // User wins
-                rewardUser(totalWinnings);
+                updateBalanceOnWin(wagerAmount);
             } else {
                 // User loses
                 updateBalanceOnLoss(wagerAmount);
@@ -146,6 +146,12 @@ function updateBalanceOnLoss(wagerAmount) {
     balanceElement.textContent = `$${newBalance}`; // Update the balance text
 }
 
+function updateBalanceOnWin(wagerAmount) {
+    const balanceElement = document.getElementById('balance');
+    const currentBalance = parseFloat(balanceElement.textContent.slice(1)); // Remove '$' sign
+    const newBalance = currentBalance + (wagerAmount * 3); // Triple the wager amount if all bets are won
+    balanceElement.textContent = `$${newBalance.toFixed(2)}`; // Update the balance text
+}
 
 function determineBetOutcomes(actualStats) {
     const betOutcomes = {};
@@ -156,23 +162,15 @@ function determineBetOutcomes(actualStats) {
         } else if (betType === 'under') {
             betOutcomes[category] = actualStats[category] < predictedStats[category];
         }
+        console.log(`Bet outcome for ${category}: ${betOutcomes[category]}`); // Log each bet outcome
     }
     return betOutcomes;
 }
 
-function evaluateParlay(betOutcomes, wagerAmount) {
-    let totalWinnings = 0;
-
-    // Check if all three buttons are flashing green
+function evaluateParlay(betOutcomes) {
     const allBetsWon = Object.values(betOutcomes).every(outcome => outcome);
-
-    if (allBetsWon) {
-        totalWinnings = wagerAmount * 3; // Triple the wager amount if all bets are won
-    } else {
-        totalWinnings = -wagerAmount; // User loses the entire wager if any bet is lost
-    }
-
-    return totalWinnings;
+    console.log(`All bets won: ${allBetsWon}`); // Log the final result
+    return allBetsWon;
 }
 
 function showActualCategories() {
@@ -180,7 +178,12 @@ function showActualCategories() {
     popup.classList.remove('hidden');
     setTimeout(() => {
         popup.classList.add('hidden');
+        moveToNextMatchup(); // Move to the next matchup after the popup disappears
     }, 3000);
+}
+
+function moveToNextMatchup() {
+    nextMatchup();
 }
 
 function displayActualStats(actualStats) {
@@ -209,29 +212,39 @@ function getActualStatsForMatchup(matchup) {
         });
 }
 
-function compareStats(actualStats) {
-    const predictedPoints = parseFloat(document.getElementById('predictedPoints').textContent.split(' ')[1]);
-    const predictedRebounds = parseFloat(document.getElementById('predictedRebounds').textContent.split(' ')[1]);
-    const predictedAssists = parseFloat(document.getElementById('predictedAssists').textContent.split(' ')[1]);
-    compareStat('points', actualStats.points, predictedPoints);
-    compareStat('rebounds', actualStats.rebounds, predictedRebounds);
-    compareStat('assists', actualStats.assists, predictedAssists);
-}
-
 function compareStat(category, actualValue, predictedValue) {
     const overBtn = document.getElementById(`${category}OverBtn`);
     const underBtn = document.getElementById(`${category}UnderBtn`);
+    const betType = userBets[category];
     const diff = actualValue - predictedValue;
-    if (overBtn.style.backgroundColor === 'green' && diff > 0) {
+    let isCorrect = false;
+
+    if (betType === 'over' && diff > 0) {
         flashButton(overBtn, 'flash-green');
         flashButton(underBtn, 'flash-green');
-    } else if (underBtn.style.backgroundColor === 'green' && diff < 0) {
+        isCorrect = true;
+    } else if (betType === 'under' && diff < 0) {
         flashButton(overBtn, 'flash-green');
         flashButton(underBtn, 'flash-green');
+        isCorrect = true;
     } else {
         flashButton(overBtn, 'flash-red');
         flashButton(underBtn, 'flash-red');
     }
+
+    return isCorrect;
+}
+
+function compareStats(actualStats) {
+    const predictedPoints = parseFloat(document.getElementById('predictedPoints').textContent.split(' ')[1]);
+    const predictedRebounds = parseFloat(document.getElementById('predictedRebounds').textContent.split(' ')[1]);
+    const predictedAssists = parseFloat(document.getElementById('predictedAssists').textContent.split(' ')[1]);
+
+    const pointsCorrect = compareStat('points', actualStats.points, predictedPoints);
+    const reboundsCorrect = compareStat('rebounds', actualStats.rebounds, predictedRebounds);
+    const assistsCorrect = compareStat('assists', actualStats.assists, predictedAssists);
+
+    return pointsCorrect && reboundsCorrect && assistsCorrect;
 }
 
 function flashButton(button, className) {
@@ -245,18 +258,4 @@ function resetActualStats() {
     document.getElementById('actualPoints').textContent = '';
     document.getElementById('actualRebounds').textContent = '';
     document.getElementById('actualAssists').textContent = '';
-}
-
-function rewardUser(totalWinnings) {
-    const wagerAmountInput = document.getElementById('betInput').value;
-    const wagerAmount = parseFloat(wagerAmountInput);
-    const balanceElement = document.getElementById('balance');
-    const currentBalance = parseFloat(balanceElement.textContent.slice(1)); // Remove '$' sign
-    let newBalance = currentBalance; // Initialize new balance
-    if (totalWinnings > 0) {
-        const winnings = totalWinnings - wagerAmount; // Deduct the original wager
-        const reward = winnings + (wagerAmount * 5); // Add 5 times the original wager
-        newBalance += reward; // Update the balance with the reward
-    }
-    balanceElement.textContent = `$${newBalance}`; // Update the balance text
 }
