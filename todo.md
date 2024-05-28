@@ -12,21 +12,21 @@ permalink: /todo
         /* Styling for the page */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #a9588c;
+            background-color: #552583; /* Lakers purple */
             margin: 0;
             padding: 0;
         }
         .container {
             max-width: 800px;
             margin: 50px auto;
-            background-color: #a9588c;
+            background-color: #FFFFFF;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: #FDB927; /* Lakers gold */
             margin-bottom: 20px;
         }
         /* Styles for input fields */
@@ -43,14 +43,14 @@ permalink: /todo
         button {
             width: 100px;
             padding: 10px;
-            background-color: #4CAF50;
-            color: #fff;
+            background-color: #FDB927; /* Lakers gold */
+            color: #552583; /* Lakers purple */
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #45A049;
+            background-color: #FFD700; /* Darker gold on hover */
         }
         /* Styles for task list */
         ul {
@@ -70,7 +70,7 @@ permalink: /todo
         /* Styles for task completion */
         .completed {
             text-decoration: line-through;
-            color: #888;
+            color: #552583; /* Lakers purple */
         }
         /* Styles for button container */
         .btn-container {
