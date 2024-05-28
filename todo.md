@@ -19,7 +19,7 @@ permalink: /todo
         .container {
             max-width: 800px;
             margin: 50px auto;
-            background-color: #FFFFFF;
+            background-color: #552583;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
