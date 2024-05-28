@@ -54,6 +54,7 @@ title: Student Blog
         <a href="/brawlhalla/login">Log In</a>  <a href="/brawlhalla/signup">Sign Up</a>
         <a href="/brawlhalla/profile" class="profile-button">View your Profile</a>
         <a href="/brawlhalla/todo" class="Task Manager">Lebron's Task Manager</a>
+        <a href="/brawlhalla/leGambler" class="Task Manager">LeGambler</a>
     </div>
 </div>
 <a href="https://jaydenchen17.github.io/brawlhalla//LEBRONpredicter" class="button">
