@@ -7,7 +7,7 @@ permalink: /todo
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lebron's Laundry List</title>
+    <title style="color: #FDB927;">Lebron's Laundry List</title>
     <style>
         /* Styling for the page */
         body {
@@ -19,7 +19,7 @@ permalink: /todo
         .container {
             max-width: 800px;
             margin: 50px auto;
-            background-color: #552583;
+            background-color: #FFFFFF;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -87,13 +87,15 @@ permalink: /todo
 <body>
     <div class="container">
         <!-- Title of the page -->
-        <h1>Lebron's Laundry List</h1>
+        <h1 style="color: #FDB927;">Lebron's Laundry List</h1>
         <!-- Input fields for task description, date, and time -->
         <input type="text" id="taskInput" placeholder="Enter task...">
         <input type="date" id="taskDate">
         <input type="time" id="taskTime">
         <!-- Button to add a task -->
         <button onclick="addTask()">Add Task</button>
+        <!-- Button to sort tasks -->
+        <button onclick="sortAndDisplayTasks()">Sort Tasks</button>
         <!-- List to display tasks -->
         <ul id="taskList"></ul>
     </div>
@@ -141,7 +143,40 @@ permalink: /todo
                 document.getElementById("taskList").innerHTML = taskListHtml;
             });
         }
-        // Function to mark a task as completed, made by AI
+        // Function to sort tasks by date using loops and 2D iteration
+        function sortTasks(taskList) {
+            for (let i = 0; i < taskList.length; i++) {
+                for (let j = 0; j < taskList.length - i - 1; j++) {
+                    if (new Date(taskList[j].date) > new Date(taskList[j + 1].date)) {
+                        let temp = taskList[j];
+                        taskList[j] = taskList[j + 1];
+                        taskList[j + 1] = temp;
+                    }
+                }
+            }
+            return taskList;
+        }
+        // Function to sort and display tasks
+        function sortAndDisplayTasks() {
+            fetch('http://127.0.0.1:8086/api/todo/list')
+            .then(response => response.json())
+            .then(taskList => {
+                taskList = sortTasks(taskList);
+                var taskListHtml = '';
+                taskList.forEach(task => {
+                    taskListHtml += `<li${task.completed ? ' class="completed"' : ''}>${task.description}
+                        <span style="margin-left: 10px;">Date: ${task.date}</span>
+                        <span style="margin-left: 10px;">Time: ${task.time}</span>
+                        <div class="btn-container">
+                            <button onclick="completeTask('${task.description}')">Complete</button>
+                            <button onclick="deleteTask('${task.description}')">Delete</button>
+                        </div>
+                    </li>`;
+                });
+                document.getElementById("taskList").innerHTML = taskListHtml;
+            });
+        }
+        // Function to mark a task as completed
         function completeTask(description) {
             // Send a PUT request to mark the task as completed
             fetch('http://127.0.0.1:8086/api/todo/complete/' + encodeURIComponent(description), {
@@ -154,7 +189,7 @@ permalink: /todo
                 fetchTaskList();
             });
         }
-        // Function to delete a task, made by AI
+        // Function to delete a task
         function deleteTask(description) {
             // Send a DELETE request to delete the task
             fetch('http://127.0.0.1:8086/api/todo/delete/' + encodeURIComponent(description), {
