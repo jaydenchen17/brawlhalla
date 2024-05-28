@@ -143,11 +143,13 @@ permalink: /todo
                 document.getElementById("taskList").innerHTML = taskListHtml;
             });
         }
-        // Function to sort tasks by date using loops and 2D iteration
+        // Function to sort tasks by date and time using loops and 2D iteration
         function sortTasks(taskList) {
             for (let i = 0; i < taskList.length; i++) {
                 for (let j = 0; j < taskList.length - i - 1; j++) {
-                    if (new Date(taskList[j].date) > new Date(taskList[j + 1].date)) {
+                    let dateA = new Date(taskList[j].date + 'T' + taskList[j].time);
+                    let dateB = new Date(taskList[j + 1].date + 'T' + taskList[j + 1].time);
+                    if (dateA > dateB) {
                         let temp = taskList[j];
                         taskList[j] = taskList[j + 1];
                         taskList[j + 1] = temp;
