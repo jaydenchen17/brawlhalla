@@ -2,9 +2,9 @@
 toc: false
 comments: true
 layout: post
-title: PROJECT LEBRON - Bronpicks
+title: PROJECT LEBRON - Lebronpick Arcade
 type: tangibles
-permalink: /prizepick
+permalink: /arcade
 ---
 
 <html lang="en">
@@ -16,6 +16,11 @@ permalink: /prizepick
 </head>
 <body>
     <h2 id="matchupNumber"></h2>
+    <div class="search-opponent">
+        <label for="searchOpponent">Search for Opponent:</label>
+        <input type="text" id="searchOpponentInput" placeholder="Enter opponent's name">
+        <button onclick="searchOpponent()">Search</button>
+    </div>
     <div class="panel">
         <div class="profile">
             <img src="images/leaura.png" alt="LeBron James Photo">
@@ -55,7 +60,6 @@ permalink: /prizepick
     <label for="betInput">Enter your wager amount:</label>
     <input type="text" id="betInput" placeholder="Wager amount">
     <button onclick="simulateGame()">Simulate Game</button>
-    <button onclick="nextMatchup()">Next Matchup</button>
     <div class="actual-categories-popup hidden">
         <div class="popup-content">
             <span class="close-btn" onclick="closePopup()">&times;</span>
@@ -71,6 +75,6 @@ permalink: /prizepick
             </div>
         </div>
     </div>
-    <script src="prizepick.js"></script>
+    <script src="arcade.js"></script>
 </body>
 </html>
