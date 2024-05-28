@@ -9,10 +9,9 @@ permalink: /todo
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title style="color: #FDB927;">Lebron's Laundry List</title>
     <style>
-        /* Styling for the page */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #552583; /* Lakers purple */
+            background-color: #552583;
             margin: 0;
             padding: 0;
         }
@@ -26,10 +25,9 @@ permalink: /todo
         }
         h1 {
             text-align: center;
-            color: #FDB927; /* Lakers gold */
+            color: #FDB927;
             margin-bottom: 20px;
         }
-        /* Styles for input fields */
         input[type="text"],
         input[type="date"],
         input[type="time"] {
@@ -39,20 +37,18 @@ permalink: /todo
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        /* Styles for buttons */
         button {
             width: 100px;
             padding: 10px;
-            background-color: #FDB927; /* Lakers gold */
-            color: #552583; /* Lakers purple */
+            background-color: #FDB927;
+            color: #552583;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #FFD700; /* Darker gold on hover */
+            background-color: #FFD700;
         }
-        /* Styles for task list */
         ul {
             list-style-type: none;
             padding: 0;
@@ -67,12 +63,10 @@ permalink: /todo
         li:last-child {
             margin-bottom: 0;
         }
-        /* Styles for task completion */
         .completed {
             text-decoration: line-through;
-            color: #552583; /* Lakers purple */
+            color: #552583;
         }
-        /* Styles for button container */
         .btn-container {
             position: absolute;
             right: 10px;
@@ -86,27 +80,19 @@ permalink: /todo
 </head>
 <body>
     <div class="container">
-        <!-- Title of the page -->
         <h1 style="color: #FDB927;">Lebron's Laundry List</h1>
-        <!-- Input fields for task description, date, and time -->
         <input type="text" id="taskInput" placeholder="Enter task...">
         <input type="date" id="taskDate">
         <input type="time" id="taskTime">
-        <!-- Button to add a task -->
         <button onclick="addTask()">Add Task</button>
-        <!-- Button to sort tasks -->
         <button onclick="sortAndDisplayTasks()">Sort Tasks</button>
-        <!-- List to display tasks -->
         <ul id="taskList"></ul>
     </div>
     <script>
-        // Function to add a task
         function addTask() {
-            // Retrieve task description, date, and time from input fields
             var description = document.getElementById("taskInput").value;
             var date = document.getElementById("taskDate").value;
             var time = document.getElementById("taskTime").value;
-            // Send a POST request to add the task
             fetch('http://127.0.0.1:8086/api/todo/add', {
                 method: 'POST',
                 headers: {
@@ -116,19 +102,14 @@ permalink: /todo
             })
             .then(response => response.json())
             .then(data => {
-                // Alert the response message and fetch updated task list
-                alert(data.message);
                 fetchTaskList();
             });
         }
-        // Function to fetch and display task list
         function fetchTaskList() {
-            // Fetch task list from the server
             fetch('http://127.0.0.1:8086/api/todo/list')
             .then(response => response.json())
             .then(taskList => {
                 var taskListHtml = '';
-                // Iterate through each task and create HTML elements
                 taskList.forEach(task => {
                     taskListHtml += `<li${task.completed ? ' class="completed"' : ''}>${task.description}
                         <span style="margin-left: 10px;">Date: ${task.date}</span>
@@ -139,11 +120,9 @@ permalink: /todo
                         </div>
                     </li>`;
                 });
-                // Update the task list HTML content
                 document.getElementById("taskList").innerHTML = taskListHtml;
             });
         }
-        // Function to sort tasks by date and time using loops and 2D iteration
         function sortTasks(taskList) {
             for (let i = 0; i < taskList.length; i++) {
                 for (let j = 0; j < taskList.length - i - 1; j++) {
@@ -158,7 +137,6 @@ permalink: /todo
             }
             return taskList;
         }
-        // Function to sort and display tasks
         function sortAndDisplayTasks() {
             fetch('http://127.0.0.1:8086/api/todo/list')
             .then(response => response.json())
@@ -178,34 +156,27 @@ permalink: /todo
                 document.getElementById("taskList").innerHTML = taskListHtml;
             });
         }
-        // Function to mark a task as completed
         function completeTask(description) {
-            // Send a PUT request to mark the task as completed
             fetch('http://127.0.0.1:8086/api/todo/complete/' + encodeURIComponent(description), {
                 method: 'PUT'
             })
             .then(response => response.json())
             .then(data => {
-                // Alert the response message and fetch updated task list
-                alert(data.message);
                 fetchTaskList();
             });
         }
-        // Function to delete a task
         function deleteTask(description) {
-            // Send a DELETE request to delete the task
             fetch('http://127.0.0.1:8086/api/todo/delete/' + encodeURIComponent(description), {
                 method: 'DELETE'
             })
             .then(response => response.json())
             .then(data => {
-                // Alert the response message and fetch updated task list
-                alert(data.message);
                 fetchTaskList();
             });
         }
-        // Fetch and display the task list when the page loads
         fetchTaskList();
     </script>
 </body>
 </html>
+
+## Time space complexity: exponential (N^2)
