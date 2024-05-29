@@ -5,6 +5,7 @@ layout: post
 title: Trimester 3 Final Project Planning
 type: tangibles
 courses: {'compsci': {'week': 3}}
+permalink: /finalplanning
 ---
 
 # Final Project Plans
@@ -29,8 +30,8 @@ courses: {'compsci': {'week': 3}}
 - The algorithm iterates over the statistics of LeBron vs. other teams to locate the one that is being evaluated
 * For each upvoted message, the system increments the user's balance count proportional to the user's bet.
 
-# Sorting/Big O:
+# Linear Search:
 
-- The algorithm sorts the list of teams based on the alphabetical order of the teams' names in descending order
+- The algorithm seaches the list of teams based on the alphabetical order of the teams' names in descending order
 * This sorting step rearranges the teams so that those with the earliest first letters appear at the top
-* Sorting involves iterating through the list of teams to compare names and arrange them accordingly
+* It involves iterating through the list of teams to compare names and arrange them accordingly
